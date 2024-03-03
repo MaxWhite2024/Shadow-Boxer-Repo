@@ -29,22 +29,21 @@ public class CrossHair : MonoBehaviour
         canvas_size_delta = canvas_rect_transform.sizeDelta;
     }
       
-    void FixedUpdate()
+    void Update()
     {
         Move_CrossHair();
 
-        Punch(Punch_Type.LEFT);
-        // //if left mouse button pressed,...
-        // if(Input.GetMouseButton(0))
-        // {
-        //     Punch(Punch_Type.LEFT);
-        // }
+        //if left mouse button pressed,...
+        if(Input.GetMouseButtonDown(0))
+        {
+            Punch(Punch_Type.LEFT);
+        }
         
-        // //if right mouse button pressed,...
-        // if(Input.GetMouseButton(1))
-        // {
-        //     Punch(Punch_Type.RIGHT);
-        // }
+        //if right mouse button pressed,...
+        if(Input.GetMouseButtonDown(1))
+        {
+            Punch(Punch_Type.RIGHT);
+        }
     }
 
     void Move_CrossHair()
@@ -55,19 +54,43 @@ public class CrossHair : MonoBehaviour
 
     void Punch(Punch_Type punch_type)
     {
+        //calculate worldposition of mouse
         Vector3 screen_pos = Input.mousePosition;
         screen_pos.z = 1000f;
         Vector3 world_pos = Camera.main.ScreenToWorldPoint(screen_pos);
 
+        //make raycast from camera in the direction of worldposition
         RaycastHit hit;
         if(Physics.Raycast(Camera.main.gameObject.transform.position, world_pos, out hit, Mathf.Infinity))
         {
-            
-            Debug.DrawRay(Camera.main.gameObject.transform.position, world_pos, Color.red);
+            //Debug.DrawRay(Camera.main.gameObject.transform.position, world_pos, Color.red);
+            //Debug.Log("Hit!");
+
+            //
+            if(punch_type == Punch_Type.LEFT)
+            {
+                Debug.Log("Hit with LEFT");
+            }
+            else if(punch_type == Punch_Type.RIGHT)
+            {
+                Debug.Log("Hit with RIGHT");
+            }
         }
         else
         {
-            Debug.DrawRay(Camera.main.gameObject.transform.position, world_pos, Color.green);
+            //Debug.DrawRay(Camera.main.gameObject.transform.position, world_pos, Color.green);
+            //Debug.Log("Missed!");
+
+            //
+            if(punch_type == Punch_Type.LEFT)
+            {
+                Debug.Log("Missed with LEFT");
+            }
+            else if(punch_type == Punch_Type.RIGHT)
+            {
+                Debug.Log("Missed with RIGHT");
+            }
         }
+
     }
 }
