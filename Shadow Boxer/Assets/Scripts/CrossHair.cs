@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+public enum Punch_Type
+{
+    EITHER, LEFT, RIGHT
+}
+
 public class CrossHair : MonoBehaviour
 {
-    private enum Punch_Type
-    {
-        LEFT, RIGHT
-    }
-
     //Crosshair movement variables
     private RectTransform crosshair_rect_trans;
     private RectTransform canvas_rect_transform;
@@ -63,33 +63,55 @@ public class CrossHair : MonoBehaviour
         RaycastHit hit;
         if(Physics.Raycast(Camera.main.gameObject.transform.position, world_pos, out hit, Mathf.Infinity))
         {
-            //Debug.DrawRay(Camera.main.gameObject.transform.position, world_pos, Color.red);
-            //Debug.Log("Hit!");
+            // Debug.DrawRay(Camera.main.gameObject.transform.position, world_pos, Color.red);
+            // Debug.Log("Hit!");
+            // if(punch_type == Punch_Type.LEFT)
+            // {
+            //     Debug.Log("Hit with LEFT");
+            // }
+            // else if(punch_type == Punch_Type.RIGHT)
+            // {
+            //     Debug.Log("Hit with RIGHT");
+            // }
 
-            //
-            if(punch_type == Punch_Type.LEFT)
+            Destructable destructable_component = hit.collider.gameObject.GetComponent<Destructable>();
+            if(destructable_component)
             {
-                Debug.Log("Hit with LEFT");
+                if(destructable_component.objectPunchType == punch_type || destructable_component.objectPunchType == Punch_Type.EITHER)
+                {
+                    //Play correct hit sound
+                    //...
+
+                    //tell destructable object to destroy itself
+                    destructable_component.Destroy_Destructable();
+                }
+                else
+                {
+                    //Play wrong hit sound
+                    //...
+                }
             }
-            else if(punch_type == Punch_Type.RIGHT)
+            else
             {
-                Debug.Log("Hit with RIGHT");
+                //Play hit solid object sound
+                //...
             }
         }
         else
         {
-            //Debug.DrawRay(Camera.main.gameObject.transform.position, world_pos, Color.green);
-            //Debug.Log("Missed!");
+            // Debug.DrawRay(Camera.main.gameObject.transform.position, world_pos, Color.green);
+            // Debug.Log("Missed!");
+            // if(punch_type == Punch_Type.LEFT)
+            // {
+            //     Debug.Log("Missed with LEFT");
+            // }
+            // else if(punch_type == Punch_Type.RIGHT)
+            // {
+            //     Debug.Log("Missed with RIGHT");
+            // }
 
-            //
-            if(punch_type == Punch_Type.LEFT)
-            {
-                Debug.Log("Missed with LEFT");
-            }
-            else if(punch_type == Punch_Type.RIGHT)
-            {
-                Debug.Log("Missed with RIGHT");
-            }
+            //Play missed sound
+            //...
         }
 
     }
