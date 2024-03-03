@@ -10,26 +10,27 @@ public class CrossHair : MonoBehaviour
         LEFT, RIGHT
     }
 
+    //Crosshair movement variables
     private RectTransform crosshair_rect_trans;
     private RectTransform canvas_rect_transform;
-    private Vector2 crosshair_pos;
     private Vector2 canvas_size_delta;
-    private GameObject camera_object;
-    private Camera camera_camera;
+
+    //Punching variables
+    //...
  
     void Start()
     {
+        //make mouse cursor invisible
         Cursor.visible = false;
+
+        //setup vars
         crosshair_rect_trans = GetComponent<RectTransform>();
         canvas_rect_transform = GameObject.Find("Canvas").GetComponent<RectTransform>();
         canvas_size_delta = canvas_rect_transform.sizeDelta;
-        camera_object = GameObject.Find("Main Camera");
-        camera_camera = camera_object.GetComponent<Camera>();
     }
       
     void FixedUpdate()
     {
-        //Debug.Log("Mouse is: " + Input.mousePosition + "and rect is: " + crosshair_rect_trans.anchoredPosition);
         Move_CrossHair();
 
         Punch(Punch_Type.LEFT);
@@ -50,28 +51,23 @@ public class CrossHair : MonoBehaviour
     {
         //move crosshair to mouse pos
         crosshair_rect_trans.anchoredPosition = (Vector2)(Input.mousePosition / canvas_rect_transform.localScale.x) - (canvas_size_delta / 2f);
-        
     }
 
     void Punch(Punch_Type punch_type)
     {
-        Ray ray = camera_camera.ScreenPointToRay(camera_camera.ViewportToWorldPoint(crosshair_rect_trans.anchoredPosition));
-        //Debug.DrawRay(ray.origin, ray.direction, Color.green);
-        Debug.Log(crosshair_rect_trans.anchoredPosition);
-        
-        Vector3 ray_origin = camera_object.transform.position;
-        //Vector3 ray_dir = camera_camera.ViewportToWorldPoint(crosshair_rect_trans.anchoredPosition) - camera_object.transform.position;
-        Vector3 ray_dir = camera_camera.ScreenToWorldPoint(crosshair_rect_trans.anchoredPosition);
-        Vector3 mouse_pos = Input.mousePosition;
-        mouse_pos.z = 10f;
-        Debug.DrawRay(ray_origin, ray_dir, Color.green);
+        Vector3 screen_pos = Input.mousePosition;
+        screen_pos.z = 1000f;
+        Vector3 world_pos = Camera.main.ScreenToWorldPoint(screen_pos);
+
         RaycastHit hit;
-        //Debug.Log("Origin = " + ray_origin + "and dir = " + ray_dir);
-        
-        if(Physics.Raycast(ray_origin * 1000f, ray_dir, out hit, Mathf.Infinity))
+        if(Physics.Raycast(Camera.main.gameObject.transform.position, world_pos, out hit, Mathf.Infinity))
         {
-            Debug.Log("hit something!!!");
             
+            Debug.DrawRay(Camera.main.gameObject.transform.position, world_pos, Color.red);
+        }
+        else
+        {
+            Debug.DrawRay(Camera.main.gameObject.transform.position, world_pos, Color.green);
         }
     }
 }
