@@ -17,6 +17,12 @@ public class CrossHair : MonoBehaviour
 
     //Punching variables
     //...
+
+    //Sprite variables
+    [SerializeField] private RectTransform left_punch_spot_trans;
+    [SerializeField] private RectTransform right_punch_spot_trans;
+    [SerializeField] private GameObject left_punch_prefab;
+    [SerializeField] private GameObject right_punch_prefab;
  
     void Start()
     {
@@ -54,6 +60,16 @@ public class CrossHair : MonoBehaviour
 
     void Punch(Punch_Type punch_type)
     {
+        //instantiate the desired punch
+        if(punch_type == Punch_Type.LEFT)
+        {
+            Instantiate(left_punch_prefab, left_punch_spot_trans.anchoredPosition, Quaternion.identity, canvas_rect_transform);
+        }   
+        else if(punch_type == Punch_Type.RIGHT)
+        {
+
+        }
+
         //calculate worldposition of mouse
         Vector3 screen_pos = Input.mousePosition;
         screen_pos.z = 1000f;
