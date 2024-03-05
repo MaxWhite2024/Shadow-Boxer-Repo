@@ -15,9 +15,6 @@ public class CrossHair : MonoBehaviour
     [SerializeField] private RectTransform canvas_rect_transform;
     private Vector2 canvas_size_delta;
 
-    //Punching variables
-    //...
-
     //Sprite variables
     [SerializeField] private float left_punch_start_x;
     [SerializeField] private float right_punch_start_x;
@@ -63,12 +60,13 @@ public class CrossHair : MonoBehaviour
         //instantiate the desired punch
         if(punch_type == Punch_Type.LEFT)
         {
-            GameObject created_punch_obj = Instantiate(left_punch_prefab, crosshair_rect_trans.anchoredPosition, Quaternion.identity, canvas_rect_transform);
-            created_punch_obj.GetComponent<RectTransform>().anchoredPosition = crosshair_rect_trans.anchoredPosition + new Vector2(left_punch_start_x, 0f);
+            GameObject created_left_punch_obj = Instantiate(left_punch_prefab, crosshair_rect_trans.anchoredPosition, Quaternion.identity, canvas_rect_transform);
+            created_left_punch_obj.GetComponent<RectTransform>().anchoredPosition = crosshair_rect_trans.anchoredPosition + new Vector2(left_punch_start_x, 0f);
         }   
         else if(punch_type == Punch_Type.RIGHT)
         {
-
+            GameObject created_right_punch_obj = Instantiate(right_punch_prefab, crosshair_rect_trans.anchoredPosition, Quaternion.identity, canvas_rect_transform);
+            created_right_punch_obj.GetComponent<RectTransform>().anchoredPosition = crosshair_rect_trans.anchoredPosition + new Vector2(right_punch_start_x, 0f);
         }
 
         //calculate worldposition of mouse

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Punch_FX : MonoBehaviour
 {
@@ -10,6 +11,7 @@ public class Punch_FX : MonoBehaviour
     [SerializeField] private float move_speed = 0.5f;
     [SerializeField] private float horizontal_move = 140f;
     private Vector3 end;
+    [SerializeField] private Sprite[] sprites;
 
     void Start()
     {
@@ -18,6 +20,9 @@ public class Punch_FX : MonoBehaviour
         canvas_group.alpha = 1f;
         end = rect_trans.anchoredPosition;
         end.x = rect_trans.anchoredPosition.x + horizontal_move;
+
+        //randomize sprite
+        gameObject.GetComponent<Image>().sprite = sprites[Random.Range(0, 3)];
 
         //Destroy self after fade_duration seconds
         Destroy(gameObject, fade_duration);

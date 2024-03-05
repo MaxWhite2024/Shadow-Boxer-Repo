@@ -101,6 +101,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cf4e48224870e1448b959b5964b6c2eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fade_duration: 3
-  move_speed: 50
-  horizontal_move: 300
+  fade_duration: 0.75
+  move_speed: 125
+  horizontal_move: 40
+  sprites:
+  - {fileID: -2030730394, guid: 4aa961015d8475a43b74ff9b5615b28f, type: 3}
+  - {fileID: -480131758, guid: 4aa961015d8475a43b74ff9b5615b28f, type: 3}
+  - {fileID: 2137099148, guid: 4aa961015d8475a43b74ff9b5615b28f, type: 3}
