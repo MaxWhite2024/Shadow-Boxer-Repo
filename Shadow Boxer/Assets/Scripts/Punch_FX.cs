@@ -7,15 +7,20 @@ public class Punch_FX : MonoBehaviour
     private RectTransform rect_trans;
     private CanvasGroup canvas_group;
     [SerializeField] private float fade_duration = 0.5f;
+    [SerializeField] private float move_speed = 0.5f;
     [SerializeField] private float horizontal_move = 140f;
-    private float end_x;
+    private Vector3 end;
 
-    void Awake()
+    void Start()
     {
         rect_trans = GetComponent<RectTransform>();
         canvas_group = GetComponent<CanvasGroup>();
         canvas_group.alpha = 1f;
-        end_x = rect_trans.anchoredPosition.x + horizontal_move;
+        end = rect_trans.anchoredPosition;
+        end.x = rect_trans.anchoredPosition.x + horizontal_move;
+
+        //Destroy self after fade_duration seconds
+        Destroy(gameObject, fade_duration);
     }
 
     // Update is called once per frame
@@ -25,6 +30,6 @@ public class Punch_FX : MonoBehaviour
         canvas_group.alpha = Mathf.MoveTowards(canvas_group.alpha, 0f, Time.deltaTime / fade_duration);
 
         //move by horizontal_move
-        rect_trans.anchoredPosition = new Vector2(Mathf.MoveTowards(rect_trans.anchoredPosition.x, end_x, Time.deltaTime / fade_duration), 0f);
+        rect_trans.anchoredPosition = Vector3.MoveTowards(rect_trans.anchoredPosition, end, move_speed * Time.deltaTime);
     }
 }

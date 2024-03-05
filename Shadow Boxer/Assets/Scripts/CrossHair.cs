@@ -12,15 +12,15 @@ public class CrossHair : MonoBehaviour
 {
     //Crosshair movement variables
     private RectTransform crosshair_rect_trans;
-    private RectTransform canvas_rect_transform;
+    [SerializeField] private RectTransform canvas_rect_transform;
     private Vector2 canvas_size_delta;
 
     //Punching variables
     //...
 
     //Sprite variables
-    [SerializeField] private RectTransform left_punch_spot_trans;
-    [SerializeField] private RectTransform right_punch_spot_trans;
+    [SerializeField] private float left_punch_start_x;
+    [SerializeField] private float right_punch_start_x;
     [SerializeField] private GameObject left_punch_prefab;
     [SerializeField] private GameObject right_punch_prefab;
  
@@ -63,7 +63,8 @@ public class CrossHair : MonoBehaviour
         //instantiate the desired punch
         if(punch_type == Punch_Type.LEFT)
         {
-            Instantiate(left_punch_prefab, left_punch_spot_trans.anchoredPosition, Quaternion.identity, canvas_rect_transform);
+            GameObject created_punch_obj = Instantiate(left_punch_prefab, crosshair_rect_trans.anchoredPosition, Quaternion.identity, canvas_rect_transform);
+            created_punch_obj.GetComponent<RectTransform>().anchoredPosition = crosshair_rect_trans.anchoredPosition + new Vector2(left_punch_start_x, 0f);
         }   
         else if(punch_type == Punch_Type.RIGHT)
         {
