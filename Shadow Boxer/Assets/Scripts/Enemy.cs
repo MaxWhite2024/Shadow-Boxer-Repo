@@ -15,17 +15,4 @@ public class Enemy : Destructable
     {
         
     }
-
-    //Overriding Take_Damage() function from Destructable class
-    public void Take_Damage()
-    {
-        health -= 1;
-
-        if(health <= 0)
-        {
-            Destroy_Destructable();
-        }
-
-        Debug.Log("Damage!");
-    }
 }
