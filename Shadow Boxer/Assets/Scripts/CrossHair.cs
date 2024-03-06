@@ -90,7 +90,24 @@ public class CrossHair : MonoBehaviour
             // }
 
             Destructable destructable_component = hit.collider.gameObject.GetComponent<Destructable>();
-            if(destructable_component)
+            Enemy enemy_component = hit.collider.gameObject.GetComponent<Enemy>();
+            if(enemy_component)
+            {
+                if(enemy_component.objectPunchType == punch_type || enemy_component.objectPunchType == Punch_Type.EITHER)
+                {
+                    //Play correct hit sound
+                    //...
+
+                    //tell enemy object to take damage itself
+                    enemy_component.Take_Damage();
+                }
+                else
+                {
+                    //Play wrong hit sound
+                    //...
+                }
+            }
+            else if(destructable_component)
             {
                 if(destructable_component.objectPunchType == punch_type || destructable_component.objectPunchType == Punch_Type.EITHER)
                 {
@@ -98,7 +115,7 @@ public class CrossHair : MonoBehaviour
                     //...
 
                     //tell destructable object to destroy itself
-                    destructable_component.Destroy_Destructable();
+                    destructable_component.Take_Damage();
                 }
                 else
                 {
