@@ -15,9 +15,14 @@ public class Projectile : Destructable
 
     void Start()
     {
+        //starting position is starting position
         start_pos = gameObject.transform.position;
+
+        //end position is camera position
         end_pos = Camera.main.gameObject.transform.position;
-        control_pos = Vector3.Lerp(start_pos, end_pos, 0.5f) + (Vector3.up * controlHeight);
+
+        //control position is above halway between start_pos and end_pos with horizontal randomness
+        control_pos = Vector3.Lerp(start_pos, end_pos, 0.5f) + (Vector3.up * controlHeight) + (Vector3.right * Random.Range(-5, 6));
     }
 
     void Update()
