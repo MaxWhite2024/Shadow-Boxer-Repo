@@ -194,6 +194,8 @@ MonoBehaviour:
   timeBetweenAttack: 0.5
   attackDuration: 0.5
   deathDuration: 1.5
+  moveDirection: 2
+  moveSpeed: 1
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0
