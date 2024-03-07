@@ -4,9 +4,12 @@ using UnityEngine;
 
 public class Enemy : Destructable
 {
-    [SerializeField] private SpriteEffects child_sprite_effects;
+    private SpriteEffects child_sprite_effects;
     private Transform proj_spawn_trans;
-    [SerializeField] private GameObject projectile_prefab;
+    [SerializeField] private GameObject projectilePrefab;
+    [SerializeField] private float timeBetweenAttack = 2f;
+    private float count = 0f;
+    [SerializeField] private Sprite attackSprite;
 
     void Start()
     {
@@ -25,7 +28,26 @@ public class Enemy : Destructable
     // Update is called once per frame
     void Update()
     {
-        
+        //is enemy is alive,
+        if(health > 0)
+        {
+            //increment count
+            count += Time.deltaTime;
+
+            if(count >= timeBetweenAttack + child_sprite_effects.attack_duration)
+            {
+                //play attack animation
+                child_sprite_effects.PlayAttackAnimation();
+
+                //save previous sprite and change to attack Sprite
+
+                //wait then shoot
+                StartCoroutine(WaitThenShoot(child_sprite_effects.attack_duration));
+
+                //reset count
+                count = 0f;
+            }
+        }
     }
 
     //overriden Take_Damage
@@ -62,8 +84,10 @@ public class Enemy : Destructable
         Destroy_Destructable();
     } 
 
-    private void Shoot()
+    public virtual IEnumerator WaitThenShoot(float wait_time)
     {
-        Instantiate(projectile_prefab, proj_spawn_trans.position, Quaternion.identity);
+        yield return new WaitForSeconds(wait_time);
+
+        Instantiate(projectilePrefab, proj_spawn_trans.position, Quaternion.identity);
     }
 }

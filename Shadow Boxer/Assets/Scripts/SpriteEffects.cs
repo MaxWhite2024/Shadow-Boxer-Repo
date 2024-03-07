@@ -8,6 +8,7 @@ public class SpriteEffects : MonoBehaviour
     private float anim_prog = 0f;
     [SerializeField] public float anim_duration = 0.1f;
     [SerializeField] public float death_duration = 2f;
+    [SerializeField] public float attack_duration = 1f;
     private bool jump_left = false;
     private bool jump_right = false;
     private bool squish = false;
@@ -34,7 +35,7 @@ public class SpriteEffects : MonoBehaviour
                 //move up and to left
                 trans.localPosition += new Vector3(-2, 2, 0) * Time.deltaTime;
             }
-            else if(anim_prog <= (anim_duration/3f) * 2f && anim_prog <= anim_duration)
+            else if(anim_prog > (anim_duration/3f) * 2f && anim_prog <= anim_duration)
             {
                 //move down and to right
                 trans.localPosition += new Vector3(2, -2, 0) * Time.deltaTime;
@@ -57,7 +58,7 @@ public class SpriteEffects : MonoBehaviour
                 //move up and to right
                 trans.localPosition += new Vector3(2, 2, 0) * Time.deltaTime;
             }
-            else if(anim_prog <= (anim_duration/3f) * 2f && anim_prog <= anim_duration)
+            else if(anim_prog > (anim_duration/3f) * 2f && anim_prog <= anim_duration)
             {
                 //move down and to left
                 trans.localPosition += new Vector3(-2, -2, 0) * Time.deltaTime;
@@ -73,6 +74,24 @@ public class SpriteEffects : MonoBehaviour
         {
             //increment animation progress
             anim_prog += Time.deltaTime;
+
+            //***** make the sprite "squish" *****
+            if(anim_prog > 0f && anim_prog <= attack_duration/2f)
+            {
+                //stretch sprite vertically and shrink sprite horizontally
+                trans.localScale += new Vector3(-1, 1, 0) * Time.deltaTime;
+            }
+            else if(anim_prog > attack_duration/2f && anim_prog <= attack_duration)
+            {
+                //shrink sprite vertically and stretch sprite horizontally
+                trans.localScale += new Vector3(1, -1, 0) * Time.deltaTime;
+            }
+            else if(anim_prog > attack_duration)
+            {
+                squish = false;
+                
+                Reset_Trans();
+            }
         }
         else if(spin)
         {
@@ -87,7 +106,7 @@ public class SpriteEffects : MonoBehaviour
             }
             else if(anim_prog > death_duration)
             {
-                jump_right = false;
+                spin = false;
             }
         }
         else if(fly)
@@ -120,6 +139,11 @@ public class SpriteEffects : MonoBehaviour
             Spin();
         else if(selection == 1)
             Spin();
+    }
+
+    public void PlayAttackAnimation()
+    {
+        Squish();
     }
 
     private void Jump_Left()
