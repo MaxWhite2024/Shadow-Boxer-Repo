@@ -34,7 +34,7 @@ public class Enemy : Destructable
             child_sprite_effects.PlayDeathAnimation();
 
             //disable collider
-            //gameObject.layer = LayerMask.NameToLayer("Ignore Raycast");
+            gameObject.layer = LayerMask.NameToLayer("Ignore Raycast");
 
             StartCoroutine(WaitThenDestroy(child_sprite_effects.death_duration));
         }
