@@ -4,25 +4,20 @@ using UnityEngine;
 
 public class Enemy : Destructable
 {
+    private SpriteChanges child_sprite_changes;
     private SpriteEffects child_sprite_effects;
     private Transform proj_spawn_trans;
     [SerializeField] private GameObject projectilePrefab;
-    [SerializeField] private float timeBetweenAttack = 2f;
+    [SerializeField] private float timeBetweenAttack = 0.5f;
+    [SerializeField] public float attackDuration = 0.5f;
+    [SerializeField] public float deathDuration = 1.5f; 
     private float count = 0f;
-    [SerializeField] private Sprite attackSprite;
 
     void Start()
     {
-        int child_count = gameObject.transform.childCount;
-        if(child_count > 0)
-        {
-            child_sprite_effects = gameObject.transform.GetChild(0).gameObject.GetComponent<SpriteEffects>();
-
-            if(child_count == 2)
-            {
-                proj_spawn_trans = gameObject.transform.GetChild(1);
-            }
-        }
+        child_sprite_changes = gameObject.transform.GetChild(0).gameObject.GetComponent<SpriteChanges>();
+        child_sprite_effects = gameObject.transform.GetChild(0).gameObject.GetComponent<SpriteEffects>();
+        proj_spawn_trans = gameObject.transform.GetChild(1);
     }
 
     // Update is called once per frame
@@ -34,15 +29,13 @@ public class Enemy : Destructable
             //increment count
             count += Time.deltaTime;
 
-            if(count >= timeBetweenAttack + child_sprite_effects.attack_duration)
+            if(count >= timeBetweenAttack + attackDuration)
             {
                 //play attack animation
                 child_sprite_effects.PlayAttackAnimation();
 
-                //save previous sprite and change to attack Sprite
-
                 //wait then shoot
-                StartCoroutine(WaitThenShoot(child_sprite_effects.attack_duration));
+                StartCoroutine(WaitThenShoot(attackDuration));
 
                 //reset count
                 count = 0f;
@@ -63,15 +56,12 @@ public class Enemy : Destructable
             //disable collider
             gameObject.layer = LayerMask.NameToLayer("Ignore Raycast");
 
-            StartCoroutine(WaitThenDestroy(child_sprite_effects.death_duration));
+            StartCoroutine(WaitThenDestroy(deathDuration));
         }
         else
         {
-            if(child_sprite_effects)
-            {
-                //play damage animation
-                child_sprite_effects.PlayDamageAnimation();
-            }
+            //play damage animation
+            child_sprite_effects.PlayDamageAnimation();
         }
 
         //Debug.Log("Damage!!!!!!");

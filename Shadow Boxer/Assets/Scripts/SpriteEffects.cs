@@ -4,21 +4,33 @@ using UnityEngine;
 
 public class SpriteEffects : MonoBehaviour
 {
+    //component vars
     private Transform trans;
+    private SpriteRenderer sprite_renderer;
+
+    //animation vars
     private float anim_prog = 0f;
     [SerializeField] public float anim_duration = 0.1f;
-    [SerializeField] public float death_duration = 2f;
-    [SerializeField] public float attack_duration = 1f;
+    private float death_duration;
+    private float attack_duration;
     private bool jump_left = false;
     private bool jump_right = false;
     private bool squish = false;
     private bool spin = false;
     private bool fly = false;
 
+    //sprite vars
+    [SerializeField] private Sprite[] moveSprites;
+    [SerializeField] private Sprite[] attackSprites;
+    [SerializeField] private Sprite deathSprite;
+
     // Start is called before the first frame update
     void Start()
     {
         trans = gameObject.transform;
+        sprite_renderer = gameObject.GetComponent<SpriteRenderer>();
+        death_duration = trans.parent.gameObject.GetComponent<Enemy>().deathDuration;
+        attack_duration = trans.parent.gameObject.GetComponent<Enemy>().attackDuration;
     }
 
     // Update is called once per frame
@@ -78,16 +90,24 @@ public class SpriteEffects : MonoBehaviour
             //***** make the sprite "squish" *****
             if(anim_prog > 0f && anim_prog <= attack_duration/2f)
             {
+                //change sprite to attack frame 0
+                sprite_renderer.sprite = attackSprites[0];
+
                 //stretch sprite vertically and shrink sprite horizontally
                 trans.localScale += new Vector3(-1, 1, 0) * Time.deltaTime;
             }
             else if(anim_prog > attack_duration/2f && anim_prog <= attack_duration)
             {
+                //change sprite to attack frame 1
+                sprite_renderer.sprite = attackSprites[1];
+
                 //shrink sprite vertically and stretch sprite horizontally
                 trans.localScale += new Vector3(1, -1, 0) * Time.deltaTime;
             }
             else if(anim_prog > attack_duration)
             {
+                sprite_renderer.sprite = moveSprites[0];
+
                 squish = false;
                 
                 Reset_Trans();
@@ -95,6 +115,9 @@ public class SpriteEffects : MonoBehaviour
         }
         else if(spin)
         {
+            //change sprite to death sprite
+            sprite_renderer.sprite = deathSprite;
+
             //increment animation progress
             anim_prog += Time.deltaTime;
 
@@ -103,10 +126,6 @@ public class SpriteEffects : MonoBehaviour
             {
                 //spin around y axis
                 trans.Rotate(0f, 900f * Time.deltaTime, 0f, Space.Self);
-            }
-            else if(anim_prog > death_duration)
-            {
-                spin = false;
             }
         }
         else if(fly)

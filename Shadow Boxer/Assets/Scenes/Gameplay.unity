@@ -192,6 +192,8 @@ MonoBehaviour:
   health: 3
   projectilePrefab: {fileID: 400810429434762269, guid: 0a9549a102fafe34dabe8154f6f68fe1, type: 3}
   timeBetweenAttack: 0.5
+  attackDuration: 0.5
+  deathDuration: 1.5
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0
@@ -783,6 +785,7 @@ GameObject:
   - component: {fileID: 1416763795}
   - component: {fileID: 1416763797}
   - component: {fileID: 1416763798}
+  - component: {fileID: 1416763799}
   m_Layer: 0
   m_Name: Face Sprite Obj
   m_TagString: Untagged
@@ -870,8 +873,24 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   anim_duration: 0.1
-  death_duration: 1.5
-  attack_duration: 0.5
+  moveSprites:
+  - {fileID: 550846241, guid: d1aaf73c3bc4d254b85436082f2de0a8, type: 3}
+  attackSprites:
+  - {fileID: 550846241, guid: d1aaf73c3bc4d254b85436082f2de0a8, type: 3}
+  - {fileID: 928116475, guid: d1aaf73c3bc4d254b85436082f2de0a8, type: 3}
+  deathSprite: {fileID: 2077597104, guid: d1aaf73c3bc4d254b85436082f2de0a8, type: 3}
+--- !u!114 &1416763799
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1416763794}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ccaea48bcfefa474fb12eb4ca1550644, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1898747315
 GameObject:
   m_ObjectHideFlags: 0
