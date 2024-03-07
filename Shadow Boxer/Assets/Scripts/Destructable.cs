@@ -20,10 +20,6 @@ public class Destructable : MonoBehaviour
         {
             Destroy_Destructable();
         }
-        else
-        {
-            //play damage animation
-        }
 
         Debug.Log("Damage!");
     }
