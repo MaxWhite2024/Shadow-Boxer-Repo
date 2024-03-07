@@ -4,17 +4,22 @@ using UnityEngine;
 
 public class Enemy : Destructable
 {
-    [SerializeField] public SpriteEffects child_sprite_effects;
-    private BoxCollider box_col;
+    [SerializeField] private SpriteEffects child_sprite_effects;
+    private Transform proj_spawn_trans;
+    [SerializeField] private GameObject projectile_prefab;
 
     void Start()
     {
-        if(gameObject.transform.childCount == 1)
+        int child_count = gameObject.transform.childCount;
+        if(child_count > 0)
         {
             child_sprite_effects = gameObject.transform.GetChild(0).gameObject.GetComponent<SpriteEffects>();
-        }
 
-        box_col = GetComponent<BoxCollider>();
+            if(child_count == 2)
+            {
+                proj_spawn_trans = gameObject.transform.GetChild(1);
+            }
+        }
     }
 
     // Update is called once per frame
@@ -47,7 +52,7 @@ public class Enemy : Destructable
             }
         }
 
-        Debug.Log("Damage!!!!!!");
+        //Debug.Log("Damage!!!!!!");
     }
 
     public virtual IEnumerator WaitThenDestroy(float wait_time)
@@ -56,4 +61,9 @@ public class Enemy : Destructable
 
         Destroy_Destructable();
     } 
+
+    private void Shoot()
+    {
+        Instantiate(projectile_prefab, proj_spawn_trans.position, Quaternion.identity);
+    }
 }

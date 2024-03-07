@@ -106,7 +106,6 @@ public class SpriteEffects : MonoBehaviour
 
     public void PlayDamageAnimation()
     {
-        Debug.Log("Here!");
         int selection = Random.Range(0, 2);
         if(selection == 0)
             Jump_Left();
