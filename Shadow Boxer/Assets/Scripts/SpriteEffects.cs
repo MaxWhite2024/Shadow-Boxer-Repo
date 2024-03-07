@@ -6,8 +6,10 @@ public class SpriteEffects : MonoBehaviour
 {
     private Transform trans;
     private float anim_prog = 0f;
-    [SerializeField] private float anim_duration = 0.5f;
-    private bool jump = false;
+    [SerializeField] public float anim_duration = 0.1f;
+    [SerializeField] public float death_duration = 2f;
+    private bool jump_left = false;
+    private bool jump_right = false;
     private bool squish = false;
     private bool spin = false;
     private bool fly = false;
@@ -21,19 +23,50 @@ public class SpriteEffects : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(jump)
+        if(jump_left)
         {
             //increment animation progress
             anim_prog += Time.deltaTime;
 
             //***** make the sprite "jump" *****
-            if(anim_prog > 0f && anim_prog <= anim_duration)
+            if(anim_prog > 0f && anim_prog <= anim_duration/3f)
             {
-                trans.localPosition = Vector3.up * (Mathf.Sin(anim_prog) / anim_duration);
+                //move up and to left
+                trans.localPosition += new Vector3(-2, 2, 0) * Time.deltaTime;
+            }
+            else if(anim_prog <= (anim_duration/3f) * 2f && anim_prog <= anim_duration)
+            {
+                //move down and to right
+                trans.localPosition += new Vector3(2, -2, 0) * Time.deltaTime;
             }
             else if(anim_prog > anim_duration)
             {
-                jump = false;
+                jump_left = false;
+                
+                Reset_Trans();
+            }
+        }
+        else if(jump_right)
+        {
+            //increment animation progress
+            anim_prog += Time.deltaTime;
+
+            //***** make the sprite "jump" *****
+            if(anim_prog > 0f && anim_prog <= anim_duration/3f)
+            {
+                //move up and to right
+                trans.localPosition += new Vector3(2, 2, 0) * Time.deltaTime;
+            }
+            else if(anim_prog <= (anim_duration/3f) * 2f && anim_prog <= anim_duration)
+            {
+                //move down and to left
+                trans.localPosition += new Vector3(-2, -2, 0) * Time.deltaTime;
+            }
+            else if(anim_prog > anim_duration)
+            {
+                jump_right = false;
+                
+                Reset_Trans();
             }
         }
         else if(squish)
@@ -45,6 +78,17 @@ public class SpriteEffects : MonoBehaviour
         {
             //increment animation progress
             anim_prog += Time.deltaTime;
+
+            //***** make the sprite "spin" *****
+            if(anim_prog > 0f && anim_prog <= (death_duration/3f) * 2f)
+            {
+                //spin around y axis
+                trans.Rotate(0f, 900f * Time.deltaTime, 0f, Space.Self);
+            }
+            else if(anim_prog > death_duration)
+            {
+                jump_right = false;
+            }
         }
         else if(fly)
         {
@@ -62,11 +106,12 @@ public class SpriteEffects : MonoBehaviour
 
     public void PlayDamageAnimation()
     {
+        Debug.Log("Here!");
         int selection = Random.Range(0, 2);
         if(selection == 0)
-            Jump();
+            Jump_Left();
         else if(selection == 1)
-            Squish();
+            Jump_Right();
     }
 
     public void PlayDeathAnimation()
@@ -75,10 +120,10 @@ public class SpriteEffects : MonoBehaviour
         if(selection == 0)
             Spin();
         else if(selection == 1)
-            Fly();
+            Spin();
     }
 
-    private void Jump()
+    private void Jump_Left()
     {
         //reset sprite position
         Reset_Trans();
@@ -87,9 +132,28 @@ public class SpriteEffects : MonoBehaviour
         anim_prog = 0f;
 
         //tell Update to play jump animation
-        jump = true;
+        jump_left = true;
 
         //cancel other animations
+        jump_right = false;
+        squish = false;
+        spin = false;
+        fly = false;
+    }
+
+    private void Jump_Right()
+    {
+        //reset sprite position
+        Reset_Trans();
+
+        //reset animation progress
+        anim_prog = 0f;
+
+        //tell Update to play jump animation
+        jump_right = true;
+
+        //cancel other animations
+        jump_left = false;
         squish = false;
         spin = false;
         fly = false;
@@ -107,7 +171,8 @@ public class SpriteEffects : MonoBehaviour
         squish = true;
 
         //cancel other animations
-        jump = false;
+        jump_left = false;
+        jump_right = false;
         spin = false;
         fly = false;
     }
@@ -124,7 +189,8 @@ public class SpriteEffects : MonoBehaviour
         spin = true;
 
         //cancel other animations
-        jump = false;
+        jump_left = false;
+        jump_right = false;
         squish = false;
         fly = false;
     }
@@ -141,7 +207,8 @@ public class SpriteEffects : MonoBehaviour
         fly = true;
 
         //cancel other animations
-        jump = false;
+        jump_left = false;
+        jump_right = false;
         squish = false;
         spin = false;
     }

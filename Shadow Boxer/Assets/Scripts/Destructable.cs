@@ -12,7 +12,7 @@ public class Destructable : MonoBehaviour
         Destroy(gameObject);
     }
 
-    public void Take_Damage()
+    public virtual void Take_Damage()
     {
         health -= 1;
 

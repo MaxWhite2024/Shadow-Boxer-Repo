@@ -34,6 +34,10 @@ public class CrossHair : MonoBehaviour
       
     void Update()
     {
+        // Vector3 screen_pos = Input.mousePosition;
+        // screen_pos.z = 1000f;
+        // world_pos = Camera.main.ScreenToWorldPoint(screen_pos);
+        // Debug.DrawRay(Camera.main.gameObject.transform.position, world_pos, Color.blue);
         Move_CrossHair();
 
         //if left mouse button pressed,...
