@@ -35,6 +35,9 @@ public class Projectile : Destructable
         //if final destination is reached, 
         if(gameObject.transform.position == end_pos)
         {
+            //tell player to take damage
+            GameManagement.Take_Damage();
+                
             //destroy self
             base.Destroy_Destructable();
         }
