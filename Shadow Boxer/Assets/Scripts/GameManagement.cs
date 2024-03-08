@@ -16,7 +16,7 @@ public class GameManagement : MonoBehaviour
     //player vars
     public static int player_health = 3;
     public static Player_State cur_player_state = Player_State.ALIVE;
-    private bool dying = false;
+    private static bool dying = false;
     private float death_time = 1f;
 
     //game state vars
@@ -44,11 +44,11 @@ public class GameManagement : MonoBehaviour
 
         if(player_health <= 0)
         {
-            this_obj.GameManagement.Die();
+            Die();
         }
     }
 
-    private void Die()
+    private static void Die()
     {
         dying = true;
     }
