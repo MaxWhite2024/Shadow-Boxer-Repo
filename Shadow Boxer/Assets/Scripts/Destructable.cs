@@ -21,6 +21,6 @@ public class Destructable : MonoBehaviour
             Destroy_Destructable();
         }
 
-        Debug.Log("Damage!");
+        //Debug.Log("Damage!");
     }
 }

@@ -78,6 +78,16 @@ public class Enemy : Destructable
         }
     }
 
+    private void OnTriggerEnter(Collider other_col)
+    {
+        //if a OffStage trigger is detected,
+        if(other_col.gameObject.layer == LayerMask.NameToLayer("OffStage"))
+        {
+            //destroy the enemy
+            Destroy(gameObject);
+        }
+    }
+
     //overriden Take_Damage
     public override void Take_Damage()
     {
