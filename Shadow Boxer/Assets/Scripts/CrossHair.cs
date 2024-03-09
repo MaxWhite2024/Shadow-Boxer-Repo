@@ -23,9 +23,6 @@ public class CrossHair : MonoBehaviour
  
     void Start()
     {
-        //make mouse cursor invisible
-        Cursor.visible = false;
-
         //setup vars
         crosshair_rect_trans = GetComponent<RectTransform>();
         canvas_rect_transform = GameObject.Find("Canvas").GetComponent<RectTransform>();
@@ -34,22 +31,25 @@ public class CrossHair : MonoBehaviour
       
     void Update()
     {
-        // Vector3 screen_pos = Input.mousePosition;
-        // screen_pos.z = 1000f;
-        // world_pos = Camera.main.ScreenToWorldPoint(screen_pos);
-        // Debug.DrawRay(Camera.main.gameObject.transform.position, world_pos, Color.blue);
-        Move_CrossHair();
+        if(GameManagement.cur_player_state == Player_State.ALIVE)
+        {
+            // Vector3 screen_pos = Input.mousePosition;
+            // screen_pos.z = 1000f;
+            // world_pos = Camera.main.ScreenToWorldPoint(screen_pos);
+            // Debug.DrawRay(Camera.main.gameObject.transform.position, world_pos, Color.blue);
+            Move_CrossHair();
 
-        //if left mouse button pressed,...
-        if(Input.GetMouseButtonDown(0))
-        {
-            Punch(Punch_Type.LEFT);
-        }
-        
-        //if right mouse button pressed,...
-        if(Input.GetMouseButtonDown(1))
-        {
-            Punch(Punch_Type.RIGHT);
+            //if left mouse button pressed,...
+            if(Input.GetMouseButtonDown(0))
+            {
+                Punch(Punch_Type.LEFT);
+            }
+            
+            //if right mouse button pressed,...
+            if(Input.GetMouseButtonDown(1))
+            {
+                Punch(Punch_Type.RIGHT);
+            }
         }
     }
 

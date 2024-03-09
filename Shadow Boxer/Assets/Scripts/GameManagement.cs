@@ -4,7 +4,7 @@ using UnityEngine;
 
 public enum Player_State
 {
-    ALIVE, DEAD, CREDITS, CUTSCENE
+    ALIVE, DYING, DEAD, CREDITS, CUTSCENE
 }
 
 public class GameManagement : MonoBehaviour
@@ -16,15 +16,22 @@ public class GameManagement : MonoBehaviour
     //player vars
     public static int player_health = 3;
     public static Player_State cur_player_state = Player_State.ALIVE;
-    private static bool dying = false;
     private float death_time = 1f;
 
     //game state vars
     private int cur_level = 1;
 
+    //temp vars
+    private static float count = 0f;
+
     // Start is called before the first frame update
     void Start()
     {
+        //make mouse cursor invisible
+        Cursor.visible = false;
+
+        //make timeScale = 1f
+
         this_obj = gameObject;
         game_over_canvas_group = GameObject.Find("Game Over Group Obj").GetComponent<CanvasGroup>();
     }
@@ -32,9 +39,28 @@ public class GameManagement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(dying)
+        if(cur_player_state == Player_State.DYING)
         {
-            game_over_canvas_group.alpha -= death_time / Time.deltaTime;
+            count += Time.deltaTime * 2f;
+
+            if(count <= death_time)
+            {
+                game_over_canvas_group.alpha += Time.deltaTime * 2f;
+            }
+            else 
+            {
+                game_over_canvas_group.interactable = true;
+                game_over_canvas_group.blocksRaycasts = true;
+
+                //stop time
+                Time.timeScale = 0f;
+                
+                //make mouse cursor visible
+                Cursor.visible = true;
+
+                //set cur state to DEAD
+                cur_player_state = Player_State.DEAD;
+            }
         }
     }
 
@@ -50,7 +76,9 @@ public class GameManagement : MonoBehaviour
 
     private static void Die()
     {
-        dying = true;
+        cur_player_state = Player_State.DYING;
+        Time.timeScale = 0.5f;
+        count = 0f;
     }
 
     public static void Set_Player_State(Player_State state)
