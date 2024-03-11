@@ -8,6 +8,13 @@ public enum Player_State
     ALIVE, DYING, DEAD, CREDITS, CUTSCENE
 }
 
+[System.Serializable]
+public class Encounter
+{
+    public GameObject[] enemies;
+    public float encounterTime = 1f;
+}
+
 public class GameManagement : MonoBehaviour
 {
     //object vars
@@ -18,12 +25,19 @@ public class GameManagement : MonoBehaviour
     public static Player_State cur_player_state = Player_State.ALIVE;
     private float death_time = 1f;
 
+    //level sequence vars
+    [SerializeField] private Encounter[] levelEncounterSequence;
+    [SerializeField] private float timeBetweenSpawns = 0.1f;
+
     //temp vars
     private static float count = 0f;
 
     // Start is called before the first frame update
     void Start()
     {
+        //reset player health
+        player_health = 5;
+
         //set current player state to alive
         cur_player_state = Player_State.ALIVE;
 
@@ -33,7 +47,40 @@ public class GameManagement : MonoBehaviour
         //make timeScale = 1f
         Time.timeScale = 1f;
 
+        //open curtains
+        GameObject.Find("Level FX Obj").GetComponent<LevelFX>().OpenCurtains();
+
         game_over_canvas_group = GameObject.Find("Game Over Group Obj").GetComponent<CanvasGroup>();
+
+        //begin level sequence
+        StartCoroutine(LevelSequence());
+    }
+
+    IEnumerator LevelSequence()
+    {
+        //as long as player is alive,
+        if(cur_player_state == Player_State.ALIVE)
+        {
+            //for each encounter in levelEncounterSequence,
+            for(int i = 0; i < levelEncounterSequence.Length; i++)
+            {
+                //for each enemy in encounter,
+                for(int j = 0; j < levelEncounterSequence[i].enemies.Length; j++)
+                {
+                    //activate the enemy
+                    levelEncounterSequence[i].enemies[j].SetActive(true);
+
+                    //wait for timeBetweenSpawns
+                    yield return new WaitForSeconds(timeBetweenSpawns);
+                }
+
+                //wait for encounter to finish
+                yield return new WaitForSeconds(levelEncounterSequence[i].encounterTime);
+            }
+            
+            //go to next level
+            //GoToNextLevel();
+        }
     }
 
     // Update is called once per frame
@@ -42,7 +89,8 @@ public class GameManagement : MonoBehaviour
         // Debug.Log(cur_player_state);
         // if(Input.GetKeyDown("t"))
         // {
-        //     Take_Damage();
+        //     //Take_Damage();
+        //     //GoToNextLevel();
         // }
 
         if(cur_player_state == Player_State.DYING)
@@ -98,5 +146,18 @@ public class GameManagement : MonoBehaviour
     {
         //load current scene
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+
+    public void GoToNextLevel()
+    {
+        //close curtains
+        GameObject.Find("Level FX Obj").GetComponent<LevelFX>().CloseCurtains();
+
+        //load next level if there is one
+        int next_scene_index = SceneManager.GetActiveScene().buildIndex + 1;
+        if(next_scene_index <= SceneManager.sceneCount)
+        {
+            SceneManager.LoadScene(next_scene_index);
+        }
     }
 }

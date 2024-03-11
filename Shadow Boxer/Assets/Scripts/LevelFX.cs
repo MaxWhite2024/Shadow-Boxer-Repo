@@ -31,8 +31,6 @@ public class LevelFX : MonoBehaviour
 
         left_curtain_trans.position = left_closed_pos;
         right_curtain_trans.position = right_closed_pos;
-
-        OpenCurtains();
     }
 
     // Update is called once per frame
@@ -42,6 +40,12 @@ public class LevelFX : MonoBehaviour
         {
             left_curtain_trans.position = Vector3.MoveTowards(left_curtain_trans.position, left_open_pos, curtainMoveSpeed * Time.deltaTime);
             right_curtain_trans.position = Vector3.MoveTowards(right_curtain_trans.position, right_open_pos, curtainMoveSpeed * Time.deltaTime);
+        }
+
+        if(closing)
+        {
+            left_curtain_trans.position = Vector3.MoveTowards(left_curtain_trans.position, left_closed_pos, curtainMoveSpeed * Time.deltaTime);
+            right_curtain_trans.position = Vector3.MoveTowards(right_curtain_trans.position, right_closed_pos, curtainMoveSpeed * Time.deltaTime);
         }
     }
 
@@ -60,5 +64,8 @@ public class LevelFX : MonoBehaviour
         closing = true;
 
         opening = false;
+
+        left_curtain_trans.position = left_open_pos;
+        right_curtain_trans.position = right_open_pos;
     }
 }
