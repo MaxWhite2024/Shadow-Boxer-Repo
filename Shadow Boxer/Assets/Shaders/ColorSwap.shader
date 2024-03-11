@@ -10,7 +10,7 @@ Shader "Custom/ColorSwap"
  
     SubShader
     {
-        Tags { "Queue" = "Transparent" }
+        Tags { "RenderType"="Transparent" "Queue" = "Transparent" }
         Blend SrcAlpha OneMinusSrcAlpha
         ZWrite Off
  
@@ -70,4 +70,5 @@ Shader "Custom/ColorSwap"
  
  
     }
+
 }

@@ -18,9 +18,6 @@ public class GameManagement : MonoBehaviour
     public static Player_State cur_player_state = Player_State.ALIVE;
     private float death_time = 1f;
 
-    //game state vars
-    private int cur_scene_index = 1;
-
     //temp vars
     private static float count = 0f;
 
