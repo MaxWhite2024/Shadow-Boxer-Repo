@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public enum Player_State
 {
@@ -10,16 +11,15 @@ public enum Player_State
 public class GameManagement : MonoBehaviour
 {
     //object vars
-    private GameObject this_obj; 
     private CanvasGroup game_over_canvas_group;
 
     //player vars
-    public static int player_health = 3;
+    public static int player_health = 5;
     public static Player_State cur_player_state = Player_State.ALIVE;
     private float death_time = 1f;
 
     //game state vars
-    private int cur_level = 1;
+    private int cur_scene_index = 1;
 
     //temp vars
     private static float count = 0f;
@@ -27,18 +27,27 @@ public class GameManagement : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        //set current player state to alive
+        cur_player_state = Player_State.ALIVE;
+
         //make mouse cursor invisible
         Cursor.visible = false;
 
         //make timeScale = 1f
+        Time.timeScale = 1f;
 
-        this_obj = gameObject;
         game_over_canvas_group = GameObject.Find("Game Over Group Obj").GetComponent<CanvasGroup>();
     }
 
     // Update is called once per frame
     void Update()
     {
+        // Debug.Log(cur_player_state);
+        // if(Input.GetKeyDown("t"))
+        // {
+        //     Take_Damage();
+        // }
+
         if(cur_player_state == Player_State.DYING)
         {
             count += Time.deltaTime * 2f;
@@ -72,6 +81,10 @@ public class GameManagement : MonoBehaviour
         {
             Die();
         }
+        else
+        {
+            GameObject.Find("Health Obj").GetComponent<HealthFX>().PlayDamageFX();
+        }
     }
 
     private static void Die()
@@ -84,5 +97,11 @@ public class GameManagement : MonoBehaviour
     public static void Set_Player_State(Player_State state)
     {
         cur_player_state = state;
+    }
+
+    public void Respawn()
+    {
+        //load current scene
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 }
