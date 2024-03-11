@@ -77,13 +77,11 @@ public class GameManagement : MonoBehaviour
     {
         player_health -= 1;
 
+        GameObject.Find("Health Obj").GetComponent<HealthFX>().PlayDamageFX();
+
         if(player_health <= 0)
         {
             Die();
-        }
-        else
-        {
-            GameObject.Find("Health Obj").GetComponent<HealthFX>().PlayDamageFX();
         }
     }
 

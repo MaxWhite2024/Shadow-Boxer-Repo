@@ -11,6 +11,7 @@ public class HealthFX : MonoBehaviour
 
     //FX vars
     [SerializeField] private Sprite[] healthbarSprites = new Sprite[6];
+    private int sprite_index = 0;
     private bool taking_damage = false;
     [SerializeField] private float fade_in_time = 0.2f;
     [SerializeField] private float fade_out_time = 1f;
@@ -21,6 +22,9 @@ public class HealthFX : MonoBehaviour
     {
         damage_HUD_group = transform.GetChild(0).GetComponent<CanvasGroup>();
         healthbar_component = transform.GetChild(1).GetComponent<Image>();
+
+        sprite_index = 0;
+        healthbar_component.sprite = healthbarSprites[sprite_index];
     }
 
     // Update is called once per frame
@@ -54,6 +58,9 @@ public class HealthFX : MonoBehaviour
 
     public void PlayDamageFX()
     {
+        sprite_index += 1;
+        healthbar_component.sprite = healthbarSprites[sprite_index];
+
         taking_damage = true;
 
         count = 0f;
