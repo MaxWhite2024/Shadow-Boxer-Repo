@@ -29,8 +29,16 @@ public class SpriteEffects : MonoBehaviour
     {
         trans = gameObject.transform;
         sprite_renderer = gameObject.GetComponent<SpriteRenderer>();
-        death_duration = trans.parent.gameObject.GetComponent<Enemy>().deathDuration;
-        attack_duration = trans.parent.gameObject.GetComponent<Enemy>().attackDuration;
+        if(gameObject.name == "Basic Sprite Obj")
+        {
+            death_duration = trans.parent.gameObject.GetComponent<WalkerEnemy>().deathDuration;
+            attack_duration = trans.parent.gameObject.GetComponent<WalkerEnemy>().attackDuration;
+        }
+        else
+        {
+            death_duration = trans.parent.gameObject.GetComponent<Enemy>().deathDuration;
+            attack_duration = trans.parent.gameObject.GetComponent<Enemy>().attackDuration;
+        }
     }
 
     // Update is called once per frame

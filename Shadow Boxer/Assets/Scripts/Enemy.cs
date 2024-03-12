@@ -10,7 +10,6 @@ public class Enemy : Destructable
     }
 
     //component vars
-    private SpriteChanges child_sprite_changes;
     private SpriteEffects child_sprite_effects;
     private Transform proj_spawn_trans;
 
@@ -45,7 +44,6 @@ public class Enemy : Destructable
 
     void Start()
     {
-        child_sprite_changes = gameObject.transform.GetChild(0).gameObject.GetComponent<SpriteChanges>();
         child_sprite_effects = gameObject.transform.GetChild(0).gameObject.GetComponent<SpriteEffects>();
         proj_spawn_trans = gameObject.transform.GetChild(1);
         vect_mov_dir = Direction_Type_To_Vector(moveDirection);

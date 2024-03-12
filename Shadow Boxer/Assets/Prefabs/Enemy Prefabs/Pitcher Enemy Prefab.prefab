@@ -54,8 +54,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 1.5, z: 0.2}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 1, y: 1.3955026, z: 0.2}
+  m_Center: {x: 0, y: -0.05224815, z: 0}
 --- !u!114 &5351190423821465016
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -69,7 +69,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   objectPunchType: 0
-  health: 2
+  health: 3
   projectilePrefab: {fileID: 400810429434762269, guid: 0a9549a102fafe34dabe8154f6f68fe1, type: 3}
   timeBetweenAttack: 2
   attackDuration: 0.5
@@ -118,7 +118,6 @@ GameObject:
   - component: {fileID: 7907389058307079182}
   - component: {fileID: 1865966136402827698}
   - component: {fileID: 1983242658375630722}
-  - component: {fileID: 2001501560554415763}
   m_Layer: 0
   m_Name: Pitcher Sprite Obj
   m_TagString: Untagged
@@ -212,15 +211,3 @@ MonoBehaviour:
   - {fileID: 262378386, guid: 8319b65a6bb437449a3026def07b874c, type: 3}
   - {fileID: -987672419, guid: 8319b65a6bb437449a3026def07b874c, type: 3}
   deathSprite: {fileID: -511059512, guid: 8319b65a6bb437449a3026def07b874c, type: 3}
---- !u!114 &2001501560554415763
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3338523714254176615}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ccaea48bcfefa474fb12eb4ca1550644, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 

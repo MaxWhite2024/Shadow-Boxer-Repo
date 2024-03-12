@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 5475930595320320733}
   - component: {fileID: 3765125212115660462}
   - component: {fileID: 3102221008347801108}
-  - component: {fileID: 1652592679133334564}
   m_Layer: 0
   m_Name: Face Sprite Obj
   m_TagString: Untagged
@@ -105,18 +104,6 @@ MonoBehaviour:
   - {fileID: 550846241, guid: d1aaf73c3bc4d254b85436082f2de0a8, type: 3}
   - {fileID: 928116475, guid: d1aaf73c3bc4d254b85436082f2de0a8, type: 3}
   deathSprite: {fileID: 2077597104, guid: d1aaf73c3bc4d254b85436082f2de0a8, type: 3}
---- !u!114 &1652592679133334564
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5980598584984972091}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ccaea48bcfefa474fb12eb4ca1550644, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &8000633398636584413
 GameObject:
   m_ObjectHideFlags: 0
@@ -202,8 +189,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 1.5, z: 0.2}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 1, y: 1.528499, z: 0.2}
+  m_Center: {x: 0, y: -0.014249548, z: 0}
 --- !u!114 &6214097808046614950
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -217,7 +204,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   objectPunchType: 0
-  health: 3
+  health: 4
   projectilePrefab: {fileID: 400810429434762269, guid: 0a9549a102fafe34dabe8154f6f68fe1, type: 3}
   timeBetweenAttack: 0.5
   attackDuration: 0.5
