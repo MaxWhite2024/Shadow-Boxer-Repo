@@ -21,6 +21,9 @@ public class Enemy : Destructable
     [SerializeField] private Direction_Type moveDirection = Direction_Type.NONE;
     [SerializeField] private float moveSpeed = 0f;
 
+    //sounds var
+    private AudioManager audio_manager; 
+
     //temp vars
     private float count = 0f;
     private Vector3 vect_mov_dir = Vector3.zero;
@@ -48,6 +51,7 @@ public class Enemy : Destructable
         proj_spawn_trans = gameObject.transform.GetChild(1);
         vect_mov_dir = Direction_Type_To_Vector(moveDirection);
         trans = gameObject.transform; 
+        audio_manager = GameObject.Find("Audio Manager").GetComponent<AudioManager>();
     }
 
     // Update is called once per frame
@@ -112,6 +116,9 @@ public class Enemy : Destructable
 
     public virtual IEnumerator WaitThenDestroy(float wait_time)
     {
+        //play spin sound
+        audio_manager.PlaySpinSound();
+
         yield return new WaitForSeconds(wait_time);
 
         Destroy_Destructable();
@@ -124,6 +131,9 @@ public class Enemy : Destructable
         if(health > 0)
         {
             Instantiate(projectilePrefab, proj_spawn_trans.position, Quaternion.identity);
+
+            //play whoosh noise
+            audio_manager.PlayWhoosh();
         }
     }
 }

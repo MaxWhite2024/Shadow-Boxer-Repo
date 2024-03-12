@@ -18,6 +18,9 @@ public class WalkerEnemy : Destructable
     [SerializeField] private Direction_Type moveDirection = Direction_Type.NONE;
     [SerializeField] private float moveSpeed = 0f;
 
+    //sounds var
+    private AudioManager audio_manager; 
+
     //temp vars
     private Vector3 vect_mov_dir = Vector3.zero;
     private Transform trans;
@@ -43,6 +46,7 @@ public class WalkerEnemy : Destructable
         child_sprite_effects = gameObject.transform.GetChild(0).gameObject.GetComponent<SpriteEffects>();
         vect_mov_dir = Direction_Type_To_Vector(moveDirection);
         trans = gameObject.transform; 
+        audio_manager = GameObject.Find("Audio Manager").GetComponent<AudioManager>();
     }
 
     // Update is called once per frame
@@ -92,6 +96,9 @@ public class WalkerEnemy : Destructable
 
     public virtual IEnumerator WaitThenDestroy(float wait_time)
     {
+        //play spin sound
+        audio_manager.PlaySpinSound();
+        
         yield return new WaitForSeconds(wait_time);
 
         Destroy_Destructable();

@@ -19,8 +19,7 @@ public class LevelFX : MonoBehaviour
     private bool opening = false;
     private bool closing = false;
 
-    // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         left_curtain_trans = transform.GetChild(0).GetComponent<Transform>();
         left_closed_pos = transform.GetChild(1).GetComponent<Transform>().position;

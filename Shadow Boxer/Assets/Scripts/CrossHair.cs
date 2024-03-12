@@ -20,6 +20,9 @@ public class CrossHair : MonoBehaviour
     [SerializeField] private float right_punch_start_x;
     [SerializeField] private GameObject left_punch_prefab;
     [SerializeField] private GameObject right_punch_prefab;
+
+    //audio var
+    private AudioManager audio_manager;
  
     void Start()
     {
@@ -27,6 +30,7 @@ public class CrossHair : MonoBehaviour
         crosshair_rect_trans = GetComponent<RectTransform>();
         canvas_rect_transform = GameObject.Find("Canvas").GetComponent<RectTransform>();
         canvas_size_delta = canvas_rect_transform.sizeDelta;
+        audio_manager = GameObject.Find("Audio Manager").GetComponent<AudioManager>();
     }
       
     void Update()
@@ -98,8 +102,8 @@ public class CrossHair : MonoBehaviour
             {
                 if(destructable_component.objectPunchType == punch_type || destructable_component.objectPunchType == Punch_Type.EITHER)
                 {
-                    //Play correct hit sound
-                    //...
+                    //Play hit sound
+                    audio_manager.PlayPunch();
 
                     //tell destructable object to destroy itself
                     destructable_component.Take_Damage();
@@ -112,8 +116,8 @@ public class CrossHair : MonoBehaviour
             }
             else
             {
-                //Play hit solid object sound
-                //...
+                //Play hit sound
+                audio_manager.PlayPunch();
             }
         }
         else
