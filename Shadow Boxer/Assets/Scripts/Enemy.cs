@@ -12,6 +12,7 @@ public class Enemy : Destructable
     //component vars
     private SpriteEffects child_sprite_effects;
     private Transform proj_spawn_trans;
+    private ParticleSystem particleSystem;
 
     //Serialized vars
     [SerializeField] private GameObject projectilePrefab;
@@ -52,6 +53,17 @@ public class Enemy : Destructable
         vect_mov_dir = Direction_Type_To_Vector(moveDirection);
         trans = gameObject.transform; 
         audio_manager = GameObject.Find("Audio Manager").GetComponent<AudioManager>();
+    }
+
+    void OnEnable()
+    {
+        particleSystem = gameObject.transform.GetChild(2).GetComponent<ParticleSystem>();
+
+        //play particle system
+        particleSystem.Play();
+
+        //destroy particle system after its duration
+        Destroy(particleSystem.gameObject, particleSystem.main.duration);
     }
 
     // Update is called once per frame

@@ -8,6 +8,18 @@ public enum Punch_Type
     EITHER, LEFT, RIGHT
 }
 
+// public static class CoroutineUtil
+// {
+//     public static IEnumerator WaitForRealSeconds(float time)
+//     {
+//         float start = Time.realtimeSinceStartup;
+//         while (Time.realtimeSinceStartup < start + time)
+//         {
+//             yield return null;
+//         }
+//     }
+// }
+
 public class CrossHair : MonoBehaviour
 {
     //Crosshair movement variables
@@ -53,6 +65,18 @@ public class CrossHair : MonoBehaviour
             if(Input.GetMouseButtonDown(1))
             {
                 Punch(Punch_Type.RIGHT);
+            }
+
+            //if space key pressed,...
+            if(Input.GetKeyDown("space") && Time.timeScale > 0f)
+            {
+                //stop time
+                Time.timeScale = 0f;
+            }
+            else if(Input.GetKeyDown("space") && Time.timeScale <= 0f)
+            {
+                //resume time
+                Time.timeScale = 1f;
             }
         }
     }
@@ -122,17 +146,6 @@ public class CrossHair : MonoBehaviour
         }
         else
         {
-            // Debug.DrawRay(Camera.main.gameObject.transform.position, world_pos, Color.green);
-            // Debug.Log("Missed!");
-            // if(punch_type == Punch_Type.LEFT)
-            // {
-            //     Debug.Log("Missed with LEFT");
-            // }
-            // else if(punch_type == Punch_Type.RIGHT)
-            // {
-            //     Debug.Log("Missed with RIGHT");
-            // }
-
             //Play missed sound
             //...
         }

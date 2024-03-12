@@ -11,6 +11,7 @@ public class WalkerEnemy : Destructable
 
     //component vars
     private SpriteEffects child_sprite_effects;
+    [SerializeField] private ParticleSystem particleSystem;
 
     //Serialized vars
     public float attackDuration = 0f;
@@ -47,6 +48,17 @@ public class WalkerEnemy : Destructable
         vect_mov_dir = Direction_Type_To_Vector(moveDirection);
         trans = gameObject.transform; 
         audio_manager = GameObject.Find("Audio Manager").GetComponent<AudioManager>();
+    }
+
+    void OnEnable()
+    {
+        particleSystem = gameObject.transform.GetChild(2).GetComponent<ParticleSystem>();
+        
+        //play particle system
+        particleSystem.Play();
+
+        //destroy particle system after its duration
+        Destroy(particleSystem.gameObject, particleSystem.main.duration);
     }
 
     // Update is called once per frame
