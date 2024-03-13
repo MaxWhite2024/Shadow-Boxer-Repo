@@ -37,6 +37,18 @@ public class GameManagement : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        // float level_time = 0;
+        // level_time += timeBeforeFirstSpawn;
+        // for(int i = 0; i < levelEncounterSequence.Length; i++)
+        // {
+        //     for(int j = 0; j < levelEncounterSequence[i].enemies.Length; j++)
+        //     {   
+        //         level_time += timeBetweenSpawns;
+        //     }   
+        //     level_time += levelEncounterSequence[i].encounterTime;
+        // }
+        // Debug.Log(level_time);
+
         //reset player health
         player_health = 5;
 
@@ -111,7 +123,6 @@ public class GameManagement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.Log(cur_num_enemies);
         // Debug.Log(cur_player_state);
         // if(Input.GetKeyDown("t"))
         // {
