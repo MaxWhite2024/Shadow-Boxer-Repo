@@ -123,6 +123,7 @@ public class GameManagement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //Debug.Log(cur_num_enemies);
         // Debug.Log(cur_player_state);
         // if(Input.GetKeyDown("t"))
         // {
