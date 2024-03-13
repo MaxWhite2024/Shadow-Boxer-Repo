@@ -29,7 +29,7 @@ public class GameManagement : MonoBehaviour
     [SerializeField] private float timeBeforeFirstSpawn = 2f;
     [SerializeField] private Encounter[] levelEncounterSequence;
     [SerializeField] private float timeBetweenSpawns = 0.1f;
-    [SerializeField] private float timeAfterLastSpawn = 2f;
+    public static int cur_num_enemies = 0;
 
     //temp vars
     private static float count = 0f;
@@ -74,6 +74,9 @@ public class GameManagement : MonoBehaviour
                     //activate the enemy
                     levelEncounterSequence[i].enemies[j].SetActive(true);
 
+                    //increment cur_num_enemies
+                    cur_num_enemies++;
+
                     //wait for timeBetweenSpawns
                     yield return new WaitForSeconds(timeBetweenSpawns);
                 }
@@ -82,7 +85,8 @@ public class GameManagement : MonoBehaviour
                 yield return new WaitForSeconds(levelEncounterSequence[i].encounterTime);
             }
 
-            yield return new WaitForSeconds(timeAfterLastSpawn);
+            //wait until all enemies are gone
+            yield return new WaitUntil(() => cur_num_enemies <= 0);
 
             //close curtains if there is a next level
             int next_scene_index = SceneManager.GetActiveScene().buildIndex + 1;

@@ -97,6 +97,9 @@ public class Enemy : Destructable
         //if a OffStage trigger is detected,
         if(other_col.gameObject.layer == LayerMask.NameToLayer("OffStage"))
         {
+            //decrement enemy count
+            GameManagement.cur_num_enemies--;
+
             //destroy the enemy
             Destroy(gameObject);
         }
