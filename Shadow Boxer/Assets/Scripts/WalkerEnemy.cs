@@ -116,6 +116,9 @@ public class WalkerEnemy : Destructable
         
         yield return new WaitForSeconds(wait_time);
 
+        //decrement enemy count
+        GameManagement.cur_num_enemies--;
+
         Destroy_Destructable();
     } 
 }

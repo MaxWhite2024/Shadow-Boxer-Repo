@@ -88,6 +88,7 @@ public class GameManagement : MonoBehaviour
             //wait until all enemies are gone
             yield return new WaitUntil(() => cur_num_enemies <= 0);
 
+
             //close curtains if there is a next level
             int next_scene_index = SceneManager.GetActiveScene().buildIndex + 1;
             //Debug.Log("next scene index is: "+next_scene_index+". And scene count is: "+SceneManager.sceneCount+". And the eval returns: "+(next_scene_index <= SceneManager.sceneCount));
@@ -110,6 +111,7 @@ public class GameManagement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        Debug.Log(cur_num_enemies);
         // Debug.Log(cur_player_state);
         // if(Input.GetKeyDown("t"))
         // {

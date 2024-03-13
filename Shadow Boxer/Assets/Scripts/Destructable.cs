@@ -9,9 +9,6 @@ public class Destructable : MonoBehaviour
 
     public void Destroy_Destructable()
     {
-        //decrement enemy count
-        GameManagement.cur_num_enemies--;
-
         Destroy(gameObject);
     }
 
