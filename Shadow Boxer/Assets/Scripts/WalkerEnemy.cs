@@ -11,7 +11,7 @@ public class WalkerEnemy : Destructable
 
     //component vars
     private SpriteEffects child_sprite_effects;
-    [SerializeField] private ParticleSystem particleSystem;
+    private ParticleSystem particleSystem;
 
     //Serialized vars
     public float attackDuration = 0f;

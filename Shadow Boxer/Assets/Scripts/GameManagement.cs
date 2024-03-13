@@ -26,8 +26,10 @@ public class GameManagement : MonoBehaviour
     private float death_time = 1f;
 
     //level sequence vars
+    [SerializeField] private float timeBeforeFirstSpawn = 2f;
     [SerializeField] private Encounter[] levelEncounterSequence;
     [SerializeField] private float timeBetweenSpawns = 0.1f;
+    [SerializeField] private float timeAfterLastSpawn = 2f;
 
     //temp vars
     private static float count = 0f;
@@ -61,6 +63,8 @@ public class GameManagement : MonoBehaviour
         //as long as player is alive,
         if(cur_player_state == Player_State.ALIVE)
         {
+            yield return new WaitForSeconds(timeBeforeFirstSpawn);
+
             //for each encounter in levelEncounterSequence,
             for(int i = 0; i < levelEncounterSequence.Length; i++)
             {
@@ -77,9 +81,25 @@ public class GameManagement : MonoBehaviour
                 //wait for encounter to finish
                 yield return new WaitForSeconds(levelEncounterSequence[i].encounterTime);
             }
+
+            yield return new WaitForSeconds(timeAfterLastSpawn);
+
+            //close curtains if there is a next level
+            int next_scene_index = SceneManager.GetActiveScene().buildIndex + 1;
+            //Debug.Log("next scene index is: "+next_scene_index+". And scene count is: "+SceneManager.sceneCount+". And the eval returns: "+(next_scene_index <= SceneManager.sceneCount));
+            if(next_scene_index <= SceneManager.sceneCount)
+            {
+                GameObject.Find("Level FX Obj").GetComponent<LevelFX>().CloseCurtains();
+            }
             
-            //go to next level
-            //GoToNextLevel();
+            //wait for roughly how long it takes for the curtains to close
+            yield return new WaitForSeconds(3.5f);
+            
+            //load next level if there is one
+            if(next_scene_index <= SceneManager.sceneCount)
+            {
+                SceneManager.LoadScene(next_scene_index);
+            }
         }
     }
 
@@ -146,18 +166,5 @@ public class GameManagement : MonoBehaviour
     {
         //load current scene
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-    }
-
-    public void GoToNextLevel()
-    {
-        //close curtains
-        GameObject.Find("Level FX Obj").GetComponent<LevelFX>().CloseCurtains();
-
-        //load next level if there is one
-        int next_scene_index = SceneManager.GetActiveScene().buildIndex + 1;
-        if(next_scene_index <= SceneManager.sceneCount)
-        {
-            SceneManager.LoadScene(next_scene_index);
-        }
     }
 }

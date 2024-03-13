@@ -485,6 +485,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 34860549e053d0740885b637f625bb6e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  timeBeforeFirstSpawn: 2
   levelEncounterSequence:
   - enemies: []
     encounterTime: 0
