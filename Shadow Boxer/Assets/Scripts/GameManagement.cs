@@ -185,4 +185,10 @@ public class GameManagement : MonoBehaviour
         //load current scene
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
+
+    private bool AreEnemies()
+    {
+        GameObject level_enemies_obj = GameObject.Find("Level Enemies");
+        //scan 
+    }
 }
