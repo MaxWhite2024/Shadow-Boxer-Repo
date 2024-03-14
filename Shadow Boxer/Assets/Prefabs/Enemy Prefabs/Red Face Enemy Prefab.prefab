@@ -206,7 +206,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   objectPunchType: 2
   health: 6
-  projectilePrefab: {fileID: 5089721395195549003, guid: c083308cb25811149be2e8daf057678e, type: 3}
+  projectilePrefab: {fileID: 400810429434762269, guid: 0a9549a102fafe34dabe8154f6f68fe1, type: 3}
   timeBetweenAttack: 0.5
   attackDuration: 0.5
   deathDuration: 1.5

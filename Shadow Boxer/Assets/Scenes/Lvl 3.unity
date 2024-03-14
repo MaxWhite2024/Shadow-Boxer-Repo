@@ -217,6 +217,10 @@ PrefabInstance:
       propertyPath: m_Color.r
       value: 0.5438959
       objectReference: {fileID: 0}
+    - target: {fileID: 5029927880395875240, guid: d7654d30392439543a75ad5c979bb924, type: 3}
+      propertyPath: m_text
+      value: Final Stage
+      objectReference: {fileID: 0}
     - target: {fileID: 5228235724885755057, guid: d7654d30392439543a75ad5c979bb924, type: 3}
       propertyPath: m_Name
       value: Level Setup
@@ -232,6 +236,14 @@ PrefabInstance:
     - target: {fileID: 7570803492874303734, guid: d7654d30392439543a75ad5c979bb924, type: 3}
       propertyPath: m_Color.r
       value: 0.5438959
+      objectReference: {fileID: 0}
+    - target: {fileID: 7609786523999491967, guid: d7654d30392439543a75ad5c979bb924, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 484.8246
+      objectReference: {fileID: 0}
+    - target: {fileID: 7609786523999491967, guid: d7654d30392439543a75ad5c979bb924, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -242.41223
       objectReference: {fileID: 0}
     - target: {fileID: 8218822962662749940, guid: d7654d30392439543a75ad5c979bb924, type: 3}
       propertyPath: m_LocalPosition.x

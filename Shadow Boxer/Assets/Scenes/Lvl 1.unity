@@ -3599,6 +3599,10 @@ PrefabInstance:
       propertyPath: 'levelEncounterSequence.Array.data[21].enemies.Array.data[3]'
       value: 
       objectReference: {fileID: 904635162}
+    - target: {fileID: 5029927880395875240, guid: d7654d30392439543a75ad5c979bb924, type: 3}
+      propertyPath: m_text
+      value: Stage 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5228235724885755057, guid: d7654d30392439543a75ad5c979bb924, type: 3}
       propertyPath: m_Name
       value: Level Setup
