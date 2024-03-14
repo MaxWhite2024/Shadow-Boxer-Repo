@@ -3607,6 +3607,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Level Setup
       objectReference: {fileID: 0}
+    - target: {fileID: 5801864487720128788, guid: d7654d30392439543a75ad5c979bb924, type: 3}
+      propertyPath: m_Alpha
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6004018090250617864, guid: d7654d30392439543a75ad5c979bb924, type: 3}
       propertyPath: m_Volume
       value: 1

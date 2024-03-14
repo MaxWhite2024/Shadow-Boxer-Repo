@@ -72,6 +72,8 @@ public class GameManagement : MonoBehaviour
 
     IEnumerator LevelSequence()
     {
+        //Debug.Log("next scene index is: "+next_scene_index+". And scene count is: "+SceneManager.sceneCountInBuildSettings+". And the eval returns: "+(next_scene_index < SceneManager.sceneCountInBuildSettings));
+        //Debug.Log(next_scene_index <= SceneManager.sceneCount);
         //as long as player is alive,
         if(cur_player_state == Player_State.ALIVE)
         {
@@ -98,13 +100,13 @@ public class GameManagement : MonoBehaviour
             }
 
             //wait until all enemies are gone
-            yield return new WaitUntil(() => cur_num_enemies <= 0);
+            yield return new WaitUntil(() => !AreThereEnemies());
 
 
             //close curtains if there is a next level
             int next_scene_index = SceneManager.GetActiveScene().buildIndex + 1;
             //Debug.Log("next scene index is: "+next_scene_index+". And scene count is: "+SceneManager.sceneCount+". And the eval returns: "+(next_scene_index <= SceneManager.sceneCount));
-            if(next_scene_index <= SceneManager.sceneCount)
+            if(next_scene_index < SceneManager.sceneCountInBuildSettings)
             {
                 GameObject.Find("Level FX Obj").GetComponent<LevelFX>().CloseCurtains();
             }
@@ -113,7 +115,7 @@ public class GameManagement : MonoBehaviour
             yield return new WaitForSeconds(3.5f);
             
             //load next level if there is one
-            if(next_scene_index <= SceneManager.sceneCount)
+            if(next_scene_index < SceneManager.sceneCountInBuildSettings)
             {
                 SceneManager.LoadScene(next_scene_index);
             }
@@ -186,9 +188,12 @@ public class GameManagement : MonoBehaviour
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
-    private bool AreEnemies()
+    private bool AreThereEnemies()
     {
-        GameObject level_enemies_obj = GameObject.Find("Level Enemies");
-        //scan 
+        //Debug.Log(GameObject.Find("Level Enemies").transform.childCount);
+        if(GameObject.Find("Level Enemies").transform.childCount > 0)
+            return true;
+        else
+            return false;
     }
 }
